@@ -1,0 +1,28 @@
+.admin-navbar {
+  width: 18vw;
+  min-width: 150px;
+  max-width: 250px;
+  background: #1f2937;
+  color: white;
+  padding-top: 2vh;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.admin-navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-navbar li {
+  padding: 1vh 2vw;
+}
+
+.admin-navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: clamp(14px, 1.2vw, 18px);
+  display: block;
+}

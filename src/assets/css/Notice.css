@@ -1,0 +1,35 @@
+.notice-page {
+    background: #fff;
+    padding: 2vw;
+    border-radius: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    font-size: clamp(16px, 1.5vw, 20px); /* 사용자 정보보다 조금 더 크게 */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .notice-header {
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: bold;
+    margin-bottom: 2vh;
+  }
+  
+  .notice-content {
+    margin-top: 2vh;
+    font-size: clamp(14px, 1.3vw, 18px);
+  }
+  
+  button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 1.5vh 3vw; /* 버튼 크기 조정 */
+    font-size: 1.1em; /* 버튼 폰트 사이즈를 좀 더 크게 */
+    cursor: pointer;
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 350px; /* 최대 너비를 좀 더 크게 */
+  }
