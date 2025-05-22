@@ -1,39 +1,28 @@
-.sidebar {
-  width: 250px;
-  background-color: #2c3e50; /* Dark sidebar */
+.admin-navbar {
+  width: 18vw;
+  min-width: 150px;
+  max-width: 250px;
+  background: #1f2937;
   color: white;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  padding-top: 2vh;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow-y: auto;
 }
 
-.sidebar h3 {
-  margin-top: 0;
-  color: #ecf0f1; /* Light text for heading */
-  border-bottom: 1px solid #34495e;
-  padding-bottom: 10px;
-}
-
-.sidebar nav ul {
-  list-style-type: none;
+.admin-navbar ul {
+  list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.sidebar nav ul li {
-  margin-bottom: 10px;
+.admin-navbar li {
+  padding: 1vh 2vw;
 }
 
-.sidebar nav ul li a {
-  text-decoration: none;
-  color: #bdc3c7; /* Lighter grey for links */
-  display: block;
-  padding: 8px 10px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-.sidebar nav ul li a:hover,
-.sidebar nav ul li a.active { /* react-router-dom Link can have an active class */
-  background-color: #3498db; /* Blue for hover/active */
+.admin-navbar a {
   color: white;
+  text-decoration: none;
+  font-size: clamp(14px, 1.2vw, 18px);
+  display: block;
 }
