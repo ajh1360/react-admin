@@ -1,82 +1,90 @@
 // src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../assets/css/Login.css';
 
 const LoginPage = ({ setIsLoggedIn }) => {
-  const [email, setEmail] = useState(''); // 'id' 대신 'email' 사용
+  const [email, setEmail] = useState(''); // API DTO에 따라 'id' 또는 'email'
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // 오류 메시지 상태
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // 이전 오류 메시지 초기화
+    setError('');
 
+    // API 호출 로직 (이전과 동일)
     try {
-      const response = await fetch('/api/admin/auth/login', { // 프록시 설정 사용 시 상대 경로
+      const response = await fetch('/api/admin/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }), // DTO 필드명에 맞춰서
+        // API 요청 DTO에 'id' 필드가 있다면 { id: email, password } 형태로 보내야 할 수 있습니다.
+        // 여기서는 Spring 컨트롤러가 email 필드를 받는다고 가정합니다.
+        body: JSON.stringify({ email: email, password: password }),
       });
 
-      const data = await response.json(); // 응답 본문을 JSON으로 파싱
+      const data = await response.json();
 
-      if (response.ok) { // HTTP 상태 코드가 200-299 사이인 경우
-        // 로그인 성공
-        console.log('Login successful:', data);
+      if (response.ok) {
         if (data.token) {
-          localStorage.setItem('adminToken', data.token); // 토큰을 localStorage에 저장
+          localStorage.setItem('adminToken', data.token);
           setIsLoggedIn(true);
-          navigate('/'); // 대시보드 또는 기본 페이지로 이동
+          navigate('/');
         } else {
           setError('토큰을 받지 못했습니다.');
         }
       } else {
-        // 로그인 실패 (서버에서 오류 응답)
-        // 서버 응답에 따라 오류 메시지 처리 (data.message 등이 있을 수 있음)
         const errorMessage = data.message || `로그인에 실패했습니다. (상태: ${response.status})`;
         setError(errorMessage);
-        console.error('Login failed:', data);
       }
     } catch (err) {
-      // 네트워크 오류 또는 기타 예외 처리
       setError('로그인 요청 중 오류가 발생했습니다. 서버 상태를 확인해주세요.');
-      console.error('Login request error:', err);
     }
   };
 
   return (
-    <div className="login-page">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h1 className="login-title">관리자 로그인 페이지</h1>
-        {error && <p style={{ color: 'red', marginBottom: '15px' }}>{error}</p>} {/* 오류 메시지 표시 */}
-        <div>
-          {/* 'id'에서 'email'로 변경 */}
-          <label htmlFor="email">이메일 (아이디)</label>
-          <input
-            type="email" // type을 email로 변경하면 기본적인 이메일 형식 검사 가능
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="username" // 자동 완성 기능 향상
-          />
-        </div>
-        <div>
-          <label htmlFor="password">비밀번호</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="current-password" // 자동 완성 기능 향상
-          />
-        </div>
-        <button type="submit" className="login-button">로그인</button>
-      </form>
+    <div className="login-page-minimal">
+      <div className="login-container-minimal">
+        <h1 className="login-title-minimal">관리자 로그인 페이지</h1>
+
+        {error && <p className="login-error-message-minimal">{error}</p>}
+
+        <form onSubmit={handleSubmit} style={{ width: '100%' }}> {/* form이 너비를 100% 차지하도록 */}
+          <div className="input-group-minimal">
+            <label htmlFor="email">아이디</label> {/* 이미지에서는 '아이디' */}
+            <input
+              type="text" // 이미지에서는 이메일 형식이 아니므로 text로 변경 (API에 따라 email도 가능)
+              id="email" // id는 label의 htmlFor와 일치
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input-field-minimal"
+              required
+              autoComplete="username"
+            />
+          </div>
+
+          <div className="input-group-minimal">
+            <label htmlFor="password">비밀번호</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input-field-minimal"
+              required
+              autoComplete="current-password"
+            />
+          </div>
+
+          <div style={{ textAlign: 'center' }}> {/* 버튼 중앙 정렬을 위한 div */}
+            <button type="submit" className="login-button-minimal">
+              로그인
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
